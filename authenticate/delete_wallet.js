@@ -13,7 +13,6 @@ const db = mysql.createConnection({
 });
 
 
-
 app.delete('/deletewallet/:id', (req, res) => {
     // DELETING ON WEBPAGE
     // Lookup wallet ID
@@ -24,12 +23,13 @@ app.delete('/deletewallet/:id', (req, res) => {
         return
     }
 
-    // Delete
+    // Deleting
     const index = wallets.indexOf(wallet);
     wallets.splice(index, 1); 
 
     // Return remaining wallets
     res.send(wallets)
+
 
     // DELETING FROM SQL TABLE
     let sql = `DELETE FROM wallets WHERE id = ${req.params.id}`         // CHANGE THIS DEPENDING ON TABLE
@@ -41,4 +41,6 @@ app.delete('/deletewallet/:id', (req, res) => {
 })
 
 
-app.listen(3000)
+app.listen(3000, () => {
+    console.log("listening on port 3000")
+})

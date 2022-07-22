@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "tt6_group_28",
   "version": "1.0.0",
   "description": "",
@@ -17,4 +18,9 @@
     "url": "https://github.com/alvinhuhhh/tt6_group_28/issues"
   },
   "homepage": "https://github.com/alvinhuhhh/tt6_group_28#readme"
+=======
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+>>>>>>> 071ba14356a12a35ce51979d48b789c92a03d69b
 }

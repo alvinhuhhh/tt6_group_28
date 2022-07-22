@@ -2,6 +2,8 @@ const express = require('express');
 const mysql = require('mysql2');
 const app = express();
 
+app.use(express.json());
+
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -36,8 +38,23 @@ app.get('/getExchangeRate/:id', (req, res) =>{
             throw err;
         }else{
             res.status(200).send(result);
+//get user wallets
+app.get('/getWallet', (req, res) =>{
+    const username = req.body.username;
+    db.query(`SELECT id from user WHERE username = '${username}'`, (err, result) =>{
+        if(err){
+            throw err;
+        }else{
+            //console.log(result);
+            const id = result[0].id;
+            console.log(id);
+            db.query(`SELECT * from wallet where user_id = '${id}'`, (err, result)=>{
+                console.log(result);
+                res.status(200).send(result);
+            })
         }
     })
 })
+
 
 app.listen(3000);

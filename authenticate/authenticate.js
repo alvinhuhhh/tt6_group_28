@@ -15,14 +15,15 @@ app.post('/login', (req, res) => {
 		// check user input matches username and password of a current index of the user array
 		if(username == users[i].username && password == users[i].password) {
 			console.log(username + " is logged in")
-			res.status(200)
+			res.status(200).send(username + " is logged in")
 			return
             }
     }
-	res.status(400)
+	res.status(404).send("Incorrect username or password")
 });
 
 
 app.listen(3000)
+
 
 

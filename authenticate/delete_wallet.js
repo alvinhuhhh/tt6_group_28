@@ -36,7 +36,7 @@ app.delete('/deletewallet/:id', (req, res) => {
     let query = db.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
-        res.send('Wallet deleted')
+        res.status(200).send('Wallet deleted')
     })
 })
 

@@ -1,6 +1,9 @@
 const express = require('express')
 const mysql = require('mysql')
 
+var strTransactions = JSON.stringify('./data/transaction.json')
+var transactions = JSON.parse(strTransactions)  
+
 // Creating connection
 const db = mysql.createConnection({
     host: 'localhost',
@@ -38,18 +41,7 @@ app.get('/transactions', (req, res) => {
         if (err) throw err;
         console.log(results);
         res.status(200).send('Transactions fetched...')
-    }
-})
-
-// Adding transactions
-app.post('/transactions', (req, res) => {
-    let sql = 'SELECT * FROM transactions'
-    
-    let query = db.query(sql, (err, results) => {
-        if (err) throw err;
-        console.log(results);
-        res.status(200).send('Transactions fetched...')
-    }
+    })
 })
 
 

@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Dashboard() {
-  const { er, setER } = useState({});
+  const { er, setER } = useState([]);
 
   const getER = async () => {
     try {

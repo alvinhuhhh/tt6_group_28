@@ -30,7 +30,7 @@ export default function Login({ ...props }) {
       password: password,
     };
     try {
-      let response = await axios.post("http://localhost:3001/login", payload);
+      // let response = await axios.post("http://localhost:3001/login", payload);
       window.sessionStorage.setItem("username", username);
       navigate("/dashboard");
     } catch (err) {

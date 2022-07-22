@@ -48,8 +48,7 @@ export default function Transaction({ ...props }) {
       let transactionClone = { ...transaction };
       transactionClone.created_at = new Date();
       transactionClone.created_by = window.sessionStorage.getItem("username");
-      // let response = await axios.post("url", transaction);
-      console.log(transaction);
+      let response = await axios.post("url", transactionClone);
     } catch (err) {
       console.log(err);
     } finally {

@@ -1,4 +1,3 @@
-const walletController = require("./walletController");
 const mysql = require("mysql2");
 const express = require("express");
 const app = express();
@@ -32,9 +31,10 @@ app.use(express.json());
 viewAllCurrencyWallets = (req, res) => {
   const username = req.body.username;
 
-  const sql = `SELECT u.id, u.name, w.name FROM user u LEFT JOIN wallet w on u.id = w.user_id WHERE u.name = ${username}`;
+  const sql = `SELECT u.id, u.name, w.name FROM user u LEFT JOIN wallet w on u.id = w.user_id WHERE u.name = '${username}'`;
   connection.query(sql, (error, results, fields) => {
     if (error) {
+      throw error;
       return res.status(404).json({
         status: "fail",
         message: "Invalid request.",

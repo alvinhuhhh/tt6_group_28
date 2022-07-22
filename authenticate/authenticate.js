@@ -15,11 +15,15 @@ app.post('/login', (req, res) => {
 		// check user input matches username and password of a current index of the user array
 		if(username == users[i].username && password == users[i].password) {
 			console.log(username + " is logged in")
-			res.redirect('/dashboard')
+			res.status(200)
 			return
             }
     }
+	res.status(400)
 });
 
 
 app.listen(3000)
+
+
+C:/Users/brian/Desktop/VSC/tt6_group_28/authenticate

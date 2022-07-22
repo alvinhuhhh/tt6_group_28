@@ -77,12 +77,14 @@ viewAllCurrencyWallets = (req, res) => {
         message: "Invalid request.",
       });
     }
-    if (!results) {
+    if (results.length === 0) {
       return res.status(404).json({
         status: "fail",
         message: "You do not have any currency wallet.",
       });
     }
+
+    console.log(results);
 
     res.status(200).json({
       status: 200,

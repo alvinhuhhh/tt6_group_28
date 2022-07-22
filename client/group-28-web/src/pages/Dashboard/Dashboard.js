@@ -1,9 +1,12 @@
 import Exr from "../../Exchange-rate.json";
 import Wallet from "../../Wallet.json";
 import userConfirm from "../../wallet-display";
+import {Link} from 'react-router-dom'
+
 
 export default function Dashboard() {
-  return (
+  
+    return (
     <div
       classexchange_currency="App"
       style={{
@@ -35,6 +38,9 @@ export default function Dashboard() {
             <td>{Exr[0].rate}</td>
           </tr>
         </table>
+        
+        <button><Link component={Link} to= "/:wallet_id/transaction">Exchange</Link></button>
+        
       </div>
       <div style={{ color: "white", backgroundColor: "gray", opacity: "85%" }}>
         <table>

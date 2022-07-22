@@ -30,9 +30,12 @@ export default function Login({ ...props }) {
       password: password,
     };
     try {
-      // let response = await axios.post("http://localhost:3001/login", payload);
-      window.sessionStorage.setItem("username", username);
-      navigate("/dashboard");
+      let response = await axios.post("http://localhost:3001/login", payload);
+      console.log(response);
+      if (response.status === 200) {
+        window.sessionStorage.setItem("username", username);
+        navigate("/dashboard");
+      }
     } catch (err) {
       console.log(err);
     }

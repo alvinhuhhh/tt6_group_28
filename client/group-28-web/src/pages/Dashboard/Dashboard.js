@@ -8,15 +8,15 @@ import axios from "axios";
 export default function Dashboard() {
   const { er, setER } = useState({});
 
-  useEffect(() => {
+  useEffect(async () => {
     try {
       let response = await axios.get("http://localhost:3001/getExchangeRate");
       console.log(response.data);
-    } catch(err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
   }, []);
-  
+
   return (
     <div
       classexchange_currency="App"

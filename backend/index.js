@@ -6,11 +6,46 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const users = [
+  {
+    "id": 1,
+    "username": "user101",
+    "password": "123456",
+    "name": "Jacky"
+  },
+  {
+    "id": 2,
+    "username": "user102",
+    "password": "123456",
+    "name": "Jane"
+  },
+  {
+    "id": 3,
+    "username": "user103",
+    "password": "123456",
+    "name": "Tom"
+  },
+  {
+    "id": 4,
+    "username": "user104",
+    "password": "123456",
+    "name": "Helen"
+  },
+  {
+    "id": 5,
+    "username": "user105",
+    "password": "123456",
+    "name": "Mark"
+  }
+]
+
+
+
 // ESTABLISH DATABASE CONNECTION
 const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "12345",
+  password: "1234",
   database: "multicurrency",
 });
 
@@ -22,7 +57,7 @@ connection.connect((error) => {
 });
 
 // LISTEN FOR REQUESTS
-const port = 3000;
+const port = 3001;
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
 });
@@ -32,7 +67,8 @@ app.listen(port, () => {
 viewAllCurrencyWallets = (req, res) => {
   const username = req.body.username;
 
-  const sql = `SELECT w.name, c.currency, c.amount FROM user u LEFT JOIN wallet w ON u.id = w.user_id LEFT JOIN currency c ON w.id = c.wallet_id WHERE u.username = '${username}'`;
+  const sql = `SELECT w.name, c.currency, c.amount FROM user u 
+  LEFT JOIN wallet w ON u.id = w.user_id LEFT JOIN currency c ON w.id = c.wallet_id WHERE u.username = '${username}'`;
   connection.query(sql, (error, results, fields) => {
     if (error) {
       throw error;
@@ -56,12 +92,12 @@ viewAllCurrencyWallets = (req, res) => {
     });
   });
 };
-
-// GET request to view all of the user's wallets
-// Returns a response with all of a user's currency-wallets
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// API : get user's currency-wallets
 app.get("/viewWallets", viewAllCurrencyWallets);
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//get all exchange rate
+// API : get all exchange rate
 app.get("/getExchangeRate", (req, res) => {
   let sql = `SELECT * FROM exchange_rate`;
   connection.query(sql, (err, result) => {
@@ -72,8 +108,9 @@ app.get("/getExchangeRate", (req, res) => {
     }
   });
 });
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//get single exchange rate
+//API : get single exchange rate
 app.get("/getExchangeRate/:id", (req, res) => {
   let sql = `SELECT * FROM exchange_rate WHERE id = ${req.params.id}`;
   connection.query(sql, (err, result) => {
@@ -84,8 +121,9 @@ app.get("/getExchangeRate/:id", (req, res) => {
     }
   });
 });
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//get user wallets
+//API : get user wallets
 app.get("/getWallet", (req, res) => {
   const username = req.body.username;
   connection.query(
@@ -94,7 +132,7 @@ app.get("/getWallet", (req, res) => {
       if (err) {
         throw err;
       } else {
-        //console.log(result);
+        console.log(result);
         const id = result[0].id;
         console.log(id);
         connection.query(
@@ -108,7 +146,9 @@ app.get("/getWallet", (req, res) => {
     }
   );
 });
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//API : delete wallet
 app.delete("/deletewallet/:id", (req, res) => {
   // DELETING FROM SQL TABLE
   let sql = `DELETE FROM wallet WHERE id = ${req.params.id}`;
@@ -118,3 +158,23 @@ app.delete("/deletewallet/:id", (req, res) => {
     res.status(200).send("Wallet deleted");
   });
 });
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// API : Login
+app.post('/login', (req, res) => {
+
+var username = req.body.username
+var password = req.body.password
+
+for(var i = 0; i < users.length; i++) {
+  // check user input matches username and password of a current index of the user array
+  if(username == users[i].username && password == users[i].password) {
+    console.log(username + " is logged in")
+    res.status(200).send(username + " is logged in")
+    return
+          }
+  }
+res.status(404).send("Incorrect username or password")
+});
+////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -49,7 +49,7 @@ export default function Transaction({ ...props }) {
       transactionClone.created_at = new Date();
       transactionClone.created_by = window.sessionStorage.getItem("username");
       let response = await axios.post(
-        `http://localhost:3001/insertTransaction/${params.wallet_id}`,
+        `http://localhost:3001/transactions/new`,
         transactionClone
       );
       console.log(response);

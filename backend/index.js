@@ -43,7 +43,7 @@ const users = [
 const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "12345",
+  password: "1234",
   database: "multicurrency",
 });
 
@@ -200,3 +200,29 @@ app.post("/login", (req, res) => {
   res.status(404).send("Incorrect username or password");
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+// API: transaction
+app.get('/transactions/new', (req, res) => {
+
+  var id = JSON.stringify(req.body.id)
+  var wallet_id = JSON.stringify(req.body.wallet_id)
+  var debit_id = JSON.stringify(req.body.debit_id)
+  var debit_currency = JSON.stringify(req.body.debit_currency)
+  var debit_amount = JSON.stringify(req.body.debit_amount)
+  var credit_id = JSON.stringify(req.body.credit_id)
+  var credit_currency = JSON.stringify(req.body.credit_currency)
+  var credit_amount = JSON.stringify(req.body.credit_amount)
+  var description = JSON.stringify(req.body.description)
+  var created_at = JSON.stringify(req.body.created_at)
+  var created_by = JSON.stringify(req.body.created_by)
+  var updated_at = JSON.stringify(req.body.updated_at)
+  var updated_by = JSON.stringify(req.body.updated_by)
+
+
+  let sql = `INSERT INTO transaction (id, wallet_id, debit_id, debit_currency, debit_amount, credit_id, credit_currency, credit_amount, description, created_at, created_by, updated_at, updated_by) 
+  VALUES ("${id}", "${wallet_id}", "${debit_id}", "${debit_currency}", "${debit_amount}", "${credit_id}", "${credit_currency}", "${credit_amount}", "${description}", "${created_at}", "${created_by}", "${updated_at}", "${updated_by}")`
+  let query = db.query(sql, (err, result) => {
+      if (err) throw err;
+      console.log(result);
+      res.status(200).send('Transaction created')
+  })
+})

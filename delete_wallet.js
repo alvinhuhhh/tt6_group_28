@@ -1,33 +1,31 @@
 const express = require('express');
 const app = express();
 
+var wallets = JSON.parse('./data/currency.json')
 
-var wallet = [
-	{
-		id: 1,
-	},
-	{
-		id: 2,
-        wallet: 
-	}
-]
 
-app.delete('user/:id', (req, res) => {
-    // Look up code. If non-existent, return 404
-    const user = users.find(c => u.userID === parseInt(req.params.id));
-    if (!course) {
-        res.status(404).send('The course with the given ID was not found') 
+app.delete('deletewallet/:id', (req, res) => {
+    // Lookup wallet ID
+    const wallet = wallets.find(w => w.id === parseInt(req.params.id));
+    // Return error if not found
+    if (!wallet) {
+        res.status(404).send('The wallet with the given ID was not found') 
         return
     }
 
     // Delete
-    const index = courses.indexOf(course);
-    courses.splice(index, 1);       // at position of index, delete 1 item
+    const index = wallets.indexOf(wallet);
+    wallets.splice(index, 1); 
 
-    // Return the same course
-    res.send(courses)
+    // Return remaining wallets
+    res.send(wallets)
+
+
+    // SQL Table
 })
 
 
 
-app.listen(3000, () => console.log('Listening on port 3000...'));
+
+
+app.listen(3000)

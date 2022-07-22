@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql')
 
-var wallets = JSON.parse('./data/wallet.json')
+var strWallets = JSON.stringify('./data/wallet.json')
+var wallets = JSON.parse(strWallets)
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -11,15 +12,6 @@ const db = mysql.createConnection({
     // database: 'wallets'
 });
 
-// Creating Table
-app.get('/createwallets', (req, res) => {
-    let sql = 'CREATE TABLE wallets(user_id int AUTO_INCREMENT, name TEXT, PRIMARY KEY (id))'
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.send('WALLETS table created...');
-    })
-})
 
 
 app.delete('/deletewallet/:id', (req, res) => {

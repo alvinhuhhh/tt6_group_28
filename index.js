@@ -1,12 +1,16 @@
 const mysql = require("mysql2");
 const express = require("express");
+const cors = require('cors');
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 // ESTABLISH DATABASE CONNECTION
 const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "123",
+  password: "1234",
   database: "multicurrency",
 });
 
@@ -22,9 +26,6 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}`);
 });
-
-// GLOBAL MIDDLEWARES
-app.use(express.json());
 
 // FUNCTIONS
 // This function return a response with all of a user's currency-wallets the currency and the wallet balances
@@ -59,3 +60,71 @@ viewAllCurrencyWallets = (req, res) => {
 // GET request to view all of the user's wallets
 // Returns a response with all of a user's currency-wallets
 app.get("/viewWallets", viewAllCurrencyWallets);
+
+//get all exchange rate
+app.get('/getExchangeRate', (req, res) =>{
+  let sql = `SELECT * FROM exchange_rate`;
+  connection.query(sql, (err, result) =>{
+      if(err){
+          throw err;
+      }else{
+          res.status(200).send(result);
+      }
+  })
+})
+
+//get single exchange rate
+app.get('/getExchangeRate/:id', (req, res) =>{
+  let sql = `SELECT * FROM exchange_rate WHERE id = ${req.params.id}`;
+  connection.query(sql, (err, result) =>{
+      if(err){
+          throw err;
+      }else{
+          res.status(200).send(result);
+      }
+  })
+})
+
+//get user wallets
+app.get('/getWallet', (req, res) =>{
+  const username = req.body.username;
+  connection.query(`SELECT id from user WHERE username = '${username}'`, (err, result) =>{
+      if(err){
+          throw err;
+      }else{
+          //console.log(result);
+          const id = result[0].id;
+          console.log(id);
+          connection.query(`SELECT * from wallet where user_id = '${id}'`, (err, result)=>{
+              console.log(result);
+              res.status(200).send(result);
+          })
+      }
+  })
+})
+
+app.delete('/deletewallet/:id', (req, res) => {
+  // DELETING ON WEBPAGE
+  // Lookup wallet ID
+  const wallet = wallets.find(w => w.id === parseInt(req.params.id));
+  // Return error if not found
+  if (!wallet) {
+      res.status(404).send('The wallet with the given ID was not found') 
+      return
+  }
+
+  // Delete
+  const index = wallets.indexOf(wallet);
+  wallets.splice(index, 1); 
+
+  // Return remaining wallets
+  res.send(wallets)
+
+  // DELETING FROM SQL TABLE
+  let sql = `DELETE FROM wallets WHERE id = ${req.params.id}`         // CHANGE THIS DEPENDING ON TABLE
+  let query = db.query(sql, (err, result) => {
+      if (err) throw err;
+      console.log(result);
+      res.status(200).send('Wallet deleted')
+  })
+})

@@ -21,8 +21,17 @@ export default function Login({ ...props }) {
     }
   };
 
-  const handleSubmit = () => {
-    console.log("Submitting...");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Logging in...");
+    const payload = {
+      username: username,
+      password: password,
+    };
+    try {
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -6,7 +6,7 @@ const app = express();
 const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "1234",
+  password: "123",
   database: "multicurrency",
 });
 
@@ -27,11 +27,11 @@ app.listen(port, () => {
 app.use(express.json());
 
 // FUNCTIONS
-// This function return a response with all of a user's currency-wallets
+// This function return a response with all of a user's currency-wallets the currency and the wallet balances
 viewAllCurrencyWallets = (req, res) => {
   const username = req.body.username;
 
-  const sql = `SELECT u.id, u.name, w.name FROM user u LEFT JOIN wallet w on u.id = w.user_id WHERE u.name = '${username}'`;
+  const sql = `SELECT w.name,c.currency, c.amount FROM user u LEFT JOIN wallet w on u.id = w.id LEFT JOIN currency c on u.id = c.id WHERE u.username = 'user101'`;
   connection.query(sql, (error, results, fields) => {
     if (error) {
       throw error;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Transaction.css";
@@ -48,7 +48,11 @@ export default function Transaction({ ...props }) {
       let transactionClone = { ...transaction };
       transactionClone.created_at = new Date();
       transactionClone.created_by = window.sessionStorage.getItem("username");
-      let response = await axios.post("url", transactionClone);
+      let response = await axios.post(
+        `http://localhost:3001/transactions/new`,
+        transactionClone
+      );
+      console.log(response);
     } catch (err) {
       console.log(err);
     } finally {
@@ -56,17 +60,10 @@ export default function Transaction({ ...props }) {
     }
   };
 
-  useEffect(() => {
-    console.log(transaction);
-  }, []);
-
   return (
     <div>
       <div>
         <h1>Make a Transaction</h1>
-      </div>
-      <div>
-        <h1>Wallet: </h1>
       </div>
 
       <div>

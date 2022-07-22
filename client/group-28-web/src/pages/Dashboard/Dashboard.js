@@ -12,6 +12,7 @@ export default function Dashboard() {
     try {
       let response = await axios.get("http://localhost:3001/getExchangeRate");
       console.log(response.data);
+      setER(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +69,14 @@ export default function Dashboard() {
             <th>Exchange Currency</th>
             <th>Rate</th>
           </tr>
-          <tr>
+          {er.map((rate) => (
+            <tr>
+              <td>{rate.base_currency}</td>
+              <td>{rate.exchange_currency}</td>
+              <td>{rate.rate}</td>
+            </tr>
+          ))}
+          {/* <tr>
             <td>{Exr[0].base_currency}</td>
             <td>{Exr[0].exchange_currency}</td>
             <td>{Exr[0].rate}</td>
@@ -122,7 +130,7 @@ export default function Dashboard() {
             <td>{Exr[10].base_currency}</td>
             <td>{Exr[10].exchange_currency}</td>
             <td>{Exr[10].rate}</td>
-          </tr>
+          </tr> */}
         </table>
       </div>
     </div>

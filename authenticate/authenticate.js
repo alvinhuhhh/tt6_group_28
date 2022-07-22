@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-import json
 
 
 var users = JSON.parse('./data/user.json')

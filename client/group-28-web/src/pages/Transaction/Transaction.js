@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./Transaction.css";
 
 export default function Transaction({ ...props }) {
+  const navigate = useNavigate();
   const params = useParams();
 
   const [transaction, setTransaction] = useState({
@@ -30,11 +31,31 @@ export default function Transaction({ ...props }) {
     }));
   };
 
-  const handleChangeCurrency = (event) => {};
+  const handleChangeCurrency = (event) => {
+    const { name, value } = event.target;
+    setTransaction((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-  const handleCancel = (event) => {};
+  const handleCancel = (event) => {
+    navigate("/dashboard");
+  };
 
-  const handleSubmit = (event) => {};
+  const handleSubmit = async (event) => {
+    try {
+      let transactionClone = { ...transaction };
+      transactionClone.created_at = new Date();
+      transactionClone.created_by = window.sessionStorage.getItem("username");
+      // let response = await axios.post("url", transaction);
+      console.log(transaction);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      navigate("/dashboard");
+    }
+  };
 
   useEffect(() => {
     console.log(transaction);

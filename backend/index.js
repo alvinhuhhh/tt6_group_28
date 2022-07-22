@@ -8,48 +8,42 @@ app.use(express.json());
 
 const users = [
   {
-    "id": 1,
-    "username": "user101",
-    "password": "123456",
-    "name": "Jacky"
+    id: 1,
+    username: "user101",
+    password: "123456",
+    name: "Jacky",
   },
   {
-    "id": 2,
-    "username": "user102",
-    "password": "123456",
-    "name": "Jane"
+    id: 2,
+    username: "user102",
+    password: "123456",
+    name: "Jane",
   },
   {
-    "id": 3,
-    "username": "user103",
-    "password": "123456",
-    "name": "Tom"
+    id: 3,
+    username: "user103",
+    password: "123456",
+    name: "Tom",
   },
   {
-    "id": 4,
-    "username": "user104",
-    "password": "123456",
-    "name": "Helen"
+    id: 4,
+    username: "user104",
+    password: "123456",
+    name: "Helen",
   },
   {
-    "id": 5,
-    "username": "user105",
-    "password": "123456",
-    "name": "Mark"
-  }
-]
-
-
+    id: 5,
+    username: "user105",
+    password: "123456",
+    name: "Mark",
+  },
+];
 
 // ESTABLISH DATABASE CONNECTION
 const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-<<<<<<< HEAD
   password: "12345",
-=======
-  password: "1234",
->>>>>>> 3bdb8c7ce99c4e180e98f6e370ca8acff5e3ba13
   database: "multicurrency",
 });
 
@@ -191,19 +185,18 @@ app.delete("/deletewallet/:id", (req, res) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // API : Login
-app.post('/login', (req, res) => {
+app.post("/login", (req, res) => {
+  var username = req.body.username;
+  var password = req.body.password;
 
-var username = req.body.username
-var password = req.body.password
-
-for(var i = 0; i < users.length; i++) {
-  // check user input matches username and password of a current index of the user array
-  if(username == users[i].username && password == users[i].password) {
-    console.log(username + " is logged in")
-    res.status(200).send(username + " is logged in")
-    return
-          }
+  for (var i = 0; i < users.length; i++) {
+    // check user input matches username and password of a current index of the user array
+    if (username == users[i].username && password == users[i].password) {
+      console.log(username + " is logged in");
+      res.status(200).send(username + " is logged in");
+      return;
+    }
   }
-res.status(404).send("Incorrect username or password")
+  res.status(404).send("Incorrect username or password");
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////

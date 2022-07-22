@@ -2,8 +2,21 @@ import Exr from "../../Exchange-rate.json";
 import Wallet from "../../Wallet.json";
 import userConfirm from "../../wallet-display";
 import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Dashboard() {
+  const { er, setER } = useState({});
+
+  useEffect(() => {
+    try {
+      let response = await axios.get("http://localhost:3001/getExchangeRate");
+      console.log(response.data);
+    } catch(err) {
+      console.log(err)
+    }
+  }, []);
+  
   return (
     <div
       classexchange_currency="App"

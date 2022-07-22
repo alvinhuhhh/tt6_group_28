@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mdb-react-ui-kit": "^4.1.0",
     "mysql2": "^2.3.3"
   }
 }

@@ -1,8 +1,42 @@
 const express = require('express')
 const app = express()
 
+// var str = JSON.stringify('./data/user.json')
+// var users = JSON.parse(str)
 
-var users = JSON.parse('./data/user.json')
+users = [
+	{
+	  "id": "1",
+	  "username": "user101",
+	  "password": "123456",
+	  "name": "Jacky"
+	},
+	{
+	  "id": "2",
+	  "username": "user102",
+	  "password": "123456",
+	  "name": "Jane"
+	},
+	{
+	  "id": "3",
+	  "username": "user103",
+	  "password": "123456",
+	  "name": "Tom"
+	},
+	{
+	  "id": "4",
+	  "username": "user104",
+	  "password": "123456",
+	  "name": "Helen"
+	},
+	{
+	  "id": "5",
+	  "username": "user105",
+	  "password": "123456",
+	  "name": "Mark"
+	}
+  ]
+  
 
 
 app.post('/login', (req, res) => {
@@ -26,4 +60,3 @@ app.post('/login', (req, res) => {
 app.listen(3000)
 
 
-C:/Users/brian/Desktop/VSC/tt6_group_28/authenticate

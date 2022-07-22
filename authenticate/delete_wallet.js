@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql')
 
-var wallets = JSON.parse('wallet.json')
+var wallets = JSON.parse('./data/wallet.json')
 
 const db = mysql.createConnection({
     host: 'localhost',

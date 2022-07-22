@@ -36,21 +36,21 @@ app.get('/transactions', (req, res) => {
 
 
 // Adding new transaction
-app.post('/transactions/new', (req, res) => {
+app.get('/transactions/new', (req, res) => {
 
-    var id = req.body.id
-    var wallet_id = req.body.wallet_id
-    var debit_id = req.body.debit_id
-    var debit_currency = req.body.debit_currency
-    var debit_amount = req.body.debit_amount
-    var credit_id = req.body.credit_id
-    var credit_currency = req.body.credit_currency
-    var credit_amount = req.body.credit_amount
-    var description = req.body.description
-    var created_at = req.body.created_at
-    var created_by = req.body.created_by
-    var updated_at = req.body.updated_at
-    var updated_by = req.body.updated_by
+    var id = JSON.stringify(req.body.id)
+    var wallet_id = JSON.stringify(req.body.wallet_id)
+    var debit_id = JSON.stringify(req.body.debit_id)
+    var debit_currency = JSON.stringify(req.body.debit_currency)
+    var debit_amount = JSON.stringify(req.body.debit_amount)
+    var credit_id = JSON.stringify(req.body.credit_id)
+    var credit_currency = JSON.stringify(req.body.credit_currency)
+    var credit_amount = JSON.stringify(req.body.credit_amount)
+    var description = JSON.stringify(req.body.description)
+    var created_at = JSON.stringify(req.body.created_at)
+    var created_by = JSON.stringify(req.body.created_by)
+    var updated_at = JSON.stringify(req.body.updated_at)
+    var updated_by = JSON.stringify(req.body.updated_by)
 
 
     let sql = `INSERT INTO transaction (id, wallet_id, debit_id, debit_currency, debit_amount, credit_id, credit_currency, credit_amount, description, created_at, created_by, updated_at, updated_by) 

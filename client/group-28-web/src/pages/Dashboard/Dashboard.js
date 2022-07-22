@@ -69,13 +69,14 @@ export default function Dashboard() {
             <th>Exchange Currency</th>
             <th>Rate</th>
           </tr>
-          {er.map((rate) => (
-            <tr>
-              <td>{rate.base_currency}</td>
-              <td>{rate.exchange_currency}</td>
-              <td>{rate.rate}</td>
-            </tr>
-          ))}
+          {er &&
+            er.map((rate) => (
+              <tr>
+                <td>{rate.base_currency}</td>
+                <td>{rate.exchange_currency}</td>
+                <td>{rate.rate}</td>
+              </tr>
+            ))}
           {/* <tr>
             <td>{Exr[0].base_currency}</td>
             <td>{Exr[0].exchange_currency}</td>

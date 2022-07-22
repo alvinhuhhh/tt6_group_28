@@ -13,7 +13,7 @@ app.post('/login', (req, res) => {
 
 	for(var i = 0; i < users.length; i++) {
 		// check user input matches username and password of a current index of the user array
-		if(username == user[i].username && password == user[i].password) {
+		if(username == users[i].username && password == users[i].password) {
 			console.log(username + " is logged in")
 			res.redirect('/dashboard')
 			return

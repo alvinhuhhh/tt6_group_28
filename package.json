@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/alvinhuhhh/tt6_group_28/issues"
   },
-  "homepage": "https://github.com/alvinhuhhh/tt6_group_28#readme"
+  "homepage": "https://github.com/alvinhuhhh/tt6_group_28#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
 }

@@ -1,10 +1,29 @@
 const express = require('express');
 const app = express();
+const mysql = require('mysql')
 
-var wallets = JSON.parse('./data/currency.json')
+var wallets = JSON.parse('./data/currency')
+
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    // database: 'wallets'
+});
+
+// Creating Table
+app.get('/createwallets', (req, res) => {
+    let sql = 'CREATE TABLE wallets(user_id int AUTO_INCREMENT, name TEXT, PRIMARY KEY (id))'
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('WALLETS table created...');
+    })
+})
 
 
-app.delete('deletewallet/:id', (req, res) => {
+app.delete('/deletewallet/:id', (req, res) => {
+    // DELETING ON WEBPAGE
     // Lookup wallet ID
     const wallet = wallets.find(w => w.id === parseInt(req.params.id));
     // Return error if not found
@@ -20,12 +39,14 @@ app.delete('deletewallet/:id', (req, res) => {
     // Return remaining wallets
     res.send(wallets)
 
-
-    // SQL Table
+    // DELETING FROM SQL TABLE
+    let sql = `DELETE FROM wallets WHERE id = ${req.params.id}`         // CHANGE THIS DEPENDING ON TABLE
+    let query = db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Wallet deleted')
+    })
 })
-
-
-
 
 
 app.listen(3000)

@@ -32,7 +32,7 @@ app.listen(port, () => {
 viewAllCurrencyWallets = (req, res) => {
   const username = req.body.username;
 
-  const sql = `SELECT w.name,c.currency, c.amount FROM user u LEFT JOIN wallet w on u.id = w.id LEFT JOIN currency c on u.id = c.id WHERE u.username = 'user101'`;
+  const sql = `SELECT w.name,c.currency, c.amount FROM user u LEFT JOIN wallet w on u.id = w.id LEFT JOIN currency c on u.id = c.id WHERE u.username = '${username}'`;
   connection.query(sql, (error, results, fields) => {
     if (error) {
       throw error;
@@ -104,25 +104,9 @@ app.get('/getWallet', (req, res) =>{
 })
 
 app.delete('/deletewallet/:id', (req, res) => {
-  // DELETING ON WEBPAGE
-  // Lookup wallet ID
-  const wallet = wallets.find(w => w.id === parseInt(req.params.id));
-  // Return error if not found
-  if (!wallet) {
-      res.status(404).send('The wallet with the given ID was not found') 
-      return
-  }
-
-  // Delete
-  const index = wallets.indexOf(wallet);
-  wallets.splice(index, 1); 
-
-  // Return remaining wallets
-  res.send(wallets)
-
   // DELETING FROM SQL TABLE
-  let sql = `DELETE FROM wallets WHERE id = ${req.params.id}`         // CHANGE THIS DEPENDING ON TABLE
-  let query = db.query(sql, (err, result) => {
+  let sql = `DELETE FROM wallet WHERE id = ${req.params.id}`         
+  let query = connection.query(sql, (err, result) => {
       if (err) throw err;
       console.log(result);
       res.status(200).send('Wallet deleted')
